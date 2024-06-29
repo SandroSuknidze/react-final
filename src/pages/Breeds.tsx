@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
-
-type CatBreed = {
-    breed: string;
-    country: string;
-    origin: string;
-    coat: string;
-    pattern: string;
-};
+import { useCatBreeds } from '../hooks/useCatBreeds'; // Adjust the import path as necessary
+import { useLocalStorage } from '../hooks/useLocalStorage'; // Adjust the import path as necessary
 
 export function Breeds() {
-    const [breeds, setBreeds] = useState<CatBreed[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useLocalStorage('currentPage', 1);
+    const { breeds, loading, error } = useCatBreeds(currentPage);
 
-    useEffect(() => {
-        axios.get(`https://catfact.ninja/breeds?page=${currentPage}`)
-            .then((response) => {
-                const data = response.data as { data: CatBreed[] };
-                setBreeds(data.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching breeds:', error);
-            });
-    }, [currentPage]);
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < 4) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
 
     return (
         <div>
@@ -43,13 +44,13 @@ export function Breeds() {
             <div>
                 <button
                     disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
+                    onClick={handlePreviousPage}
                 >
                     Previous
                 </button>
                 <button
                     disabled={currentPage === 4}
-                    onClick={() => setCurrentPage(currentPage + 1)}
+                    onClick={handleNextPage}
                 >
                     Next
                 </button>
