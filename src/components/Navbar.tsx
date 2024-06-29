@@ -16,7 +16,7 @@ export function Navbar() {
                 </button>
                 <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
                     <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-                    <li><Link to="/hotels" onClick={() => setIsMobileMenuOpen(false)}>Hotels</Link></li>
+                    <li><Link to="/breeds" onClick={() => setIsMobileMenuOpen(false)}>Breeds</Link></li>
                     <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
                 </ul>
             </nav>

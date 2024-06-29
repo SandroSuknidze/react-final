@@ -1,7 +1,13 @@
+import {Cube} from "../components/Cube.tsx";
+import '../styles/Home.scss';
+
 export function Home() {
     return (
         <>
-            <h1>home</h1>
+            <div className="home-container">
+                <h1>home</h1>
+                <Cube/>
+            </div>
         </>
     );
 }
