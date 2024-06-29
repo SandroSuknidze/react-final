@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Define a type for each cat breed (only if using TypeScript)
 type CatBreed = {
     breed: string;
     country: string;
@@ -10,7 +9,6 @@ type CatBreed = {
     pattern: string;
 };
 
-// Custom hook to fetch cat breed data
 export function useCatBreeds(currentPage: number) {
     const [breeds, setBreeds] = useState<CatBreed[]>([]);
     const [loading, setLoading] = useState(true);
